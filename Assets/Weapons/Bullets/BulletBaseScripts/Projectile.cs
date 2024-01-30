@@ -11,8 +11,11 @@ public class Projectile : MonoBehaviour
 
     private float time = 0f;
     private float timeToLive;
+    private SpriteRenderer sprite;
     private void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.sprite = effect.BulletSprite;
         timeToLive = effect.range / effect.velocity;
     }
     private void Update()

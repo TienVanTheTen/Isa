@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class BulletTypeManager : MonoBehaviour
 {
     public EffectBulletScriptableObject currentEffect { private set; get; }
     public Dictionary<EffectBulletScriptableObject, int > EffectListInventory = new Dictionary<EffectBulletScriptableObject, int>();
-
-    private int currentBulletEffectIndex = 0;
+    public event Action onBulletEffectChanged;
+    public int currentBulletEffectIndex = 0;
     
 
     //adding new effect to inventory
@@ -23,7 +25,7 @@ public class BulletTypeManager : MonoBehaviour
         {
             //if a new kind of bullet is picked up
             EffectListInventory.Add(type, amount);
-            SetCurrentEffect(currentBulletEffectIndex);
+
         } 
     }
 
@@ -37,7 +39,6 @@ public class BulletTypeManager : MonoBehaviour
 
         if(currentBulletEffectIndex < 0)
             currentBulletEffectIndex = EffectListInventory.Count -1;
-
         SetCurrentEffect(currentBulletEffectIndex);
     }
 
@@ -46,8 +47,8 @@ public class BulletTypeManager : MonoBehaviour
     {
         if (EffectListInventory.Count < index || index < 0)
             return;
-
         currentEffect = EffectListInventory.ElementAt(index).Key;
+        onBulletEffectChanged?.Invoke();
     }
 
     //remove int of effectinventory
@@ -59,15 +60,15 @@ public class BulletTypeManager : MonoBehaviour
 
 
     //checking if the current effect ur using has bullets left
-    public bool AbleToShoot()
+    public int AbleToShoot()
     {
         if (currentEffect == null)
-            return false;
+            return 0;
 
-        if(EffectListInventory[currentEffect] > 0)
-                return true;
-     
+        if (EffectListInventory[currentEffect] > 0)
+            return EffectListInventory.GetValueOrDefault(currentEffect);
+
         else
-            return false;
+            return 0;
     }
 }

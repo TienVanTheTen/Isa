@@ -8,7 +8,7 @@ using UnityEngine;
 public interface IWeapon
 {
     void Fire(Transform shootingpos,EffectBulletScriptableObject effectBullet);
-    void Reload();
+    void Reload(int amount);
 
 }
 
@@ -16,21 +16,24 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
 {
     [SerializeField] private GameObject bulletPrefab;
 
+    
     public event Action onFired;
-    public int magCapacity;
+    public event Action onAmmoChanged;
+
+    public int ammoCount { private set; get; }
     public Sprite sprite;
     public float fireRate;
     public float reloadTime;
-
+    public int magCapacity;
     protected bool isReloading;
-    private int ammoCount;
+    
     private float lastShot;
 
     public abstract WeaponBaseClass Create();
 
     private void Awake()
     {
-        ammoCount = magCapacity;
+        onAmmoChanged?.Invoke();
     }
 
     //fire function
@@ -43,16 +46,17 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
             return;
 
         ammoCount--;
-        onFired?.Invoke();
         InstantiateBullets(shootingPos, effectBullet);
+        onAmmoChanged?.Invoke();
+        onFired?.Invoke();
         lastShot = Time.time;
     }
 
     //reload function
-    public virtual void Reload()
+    public virtual void Reload(int amount)
     {
         if(!isReloading)
-            ReloadMagazine(); 
+            ReloadMagazine(amount); 
     }
     //instatiate bullet function
     public virtual void InstantiateBullets(Transform shootingPos, EffectBulletScriptableObject effectBullet)
@@ -61,11 +65,18 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
         bullet.GetComponent<Projectile>().effect = effectBullet;
     }
     //reloading after a time amount
-    async void ReloadMagazine()
+    async void ReloadMagazine(int amount)
     {
         isReloading = true;
         await Task.Delay((int)(reloadTime * 1000f));
-        ammoCount = magCapacity;
+        ammoCount = Math.Min(amount, magCapacity);
+        onAmmoChanged?.Invoke();
         isReloading = false;
+    }
+
+    public void ResetAmmoCount()
+    {
+        ammoCount = 0;
+        onAmmoChanged?.Invoke();
     }
 }

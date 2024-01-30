@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192497103fb6d4d4eb7cb5fff6b3e7ba, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  damage: 3
+  BulletSprite: {fileID: 21300000, guid: 7d3535669187c4c4a8a3982adf25e100, type: 3}
+  damage: 10
   slowAmount: 0
   slowTime: 0
   damageTickAmount: 3
