@@ -7,7 +7,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Fire(Transform shootingpos);
+    void Fire(Transform shootingpos,EffectBulletScriptableObject effectBullet);
     void Reload();
 
 }
@@ -16,12 +16,11 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
 {
     [SerializeField] private GameObject bulletPrefab;
 
+    public event Action onFired;
     public int magCapacity;
     public Sprite sprite;
     public float fireRate;
     public float reloadTime;
-
-    public EffectBulletScriptableObject effectWeapon;
 
     protected bool isReloading;
     private int ammoCount;
@@ -34,7 +33,8 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
         ammoCount = magCapacity;
     }
 
-    public virtual void Fire(Transform shootingPos)
+    //fire function
+    public virtual void Fire(Transform shootingPos,EffectBulletScriptableObject effectBullet)
     {
         if (ammoCount == 0 || isReloading)
             return;
@@ -43,20 +43,24 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
             return;
 
         ammoCount--;
-        InstantiateBullets(shootingPos);
+        onFired?.Invoke();
+        InstantiateBullets(shootingPos, effectBullet);
         lastShot = Time.time;
     }
 
+    //reload function
     public virtual void Reload()
     {
         if(!isReloading)
             ReloadMagazine(); 
     }
-    public virtual void InstantiateBullets(Transform shootingPos)
+    //instatiate bullet function
+    public virtual void InstantiateBullets(Transform shootingPos, EffectBulletScriptableObject effectBullet)
     {
         var bullet = Instantiate(bulletPrefab, shootingPos.position, shootingPos.rotation);
-        bullet.GetComponent<Projectile>().effect = effectWeapon;
+        bullet.GetComponent<Projectile>().effect = effectBullet;
     }
+    //reloading after a time amount
     async void ReloadMagazine()
     {
         isReloading = true;

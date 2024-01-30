@@ -11,7 +11,7 @@ public class PickUpManager : MonoBehaviour
         if (collision.CompareTag(PICKUP_TAG))
         {
             IPickup pickUps = collision.GetComponent<IPickup>();
-            pickUps.PickUp(collision.gameObject);
+            pickUps.PickUp(gameObject);
         }
     }
 }

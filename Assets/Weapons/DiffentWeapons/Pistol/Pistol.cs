@@ -12,5 +12,4 @@ public class Pistol : WeaponBaseClass
     {
        return Instantiate(this);
     }
-
 }
