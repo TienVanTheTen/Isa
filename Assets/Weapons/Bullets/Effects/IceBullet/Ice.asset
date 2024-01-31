@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192497103fb6d4d4eb7cb5fff6b3e7ba, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
-  BulletSprite: {fileID: 21300000, guid: cd1dc57adee96834db7b4c4c7f0f5fff, type: 3}
+  BulletSprite: {fileID: 21300000, guid: deb031fbec31c834aa846d6e27f2c62b, type: 3}
   damage: 10
   slowAmount: 15
   slowTime: 3

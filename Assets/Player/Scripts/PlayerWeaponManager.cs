@@ -54,7 +54,6 @@ public class PlayerWeaponManager : MonoBehaviour
     //communicate with bulleteffects that 1 charge of the effect has been used
     private void Fired()
     {
-        Debug.Log(bulletTypeManager.currentEffect);
         if (bulletTypeManager.AbleToShoot() == 0)
         {
             ResetMag();
@@ -75,8 +74,11 @@ public class PlayerWeaponManager : MonoBehaviour
     private void OnDestroy()
     {
         bulletTypeManager.onBulletEffectChanged -= ResetMag;
-        currentWeapon.onFired -= Fired;
-        currentWeapon.onAmmoChanged -= UpdateWeaponUI;
+        if (currentWeapon != null) 
+        {
+            currentWeapon.onFired -= Fired;
+            currentWeapon.onAmmoChanged -= UpdateWeaponUI;
+        }
         Destroy(currentWeapon);
     }
 

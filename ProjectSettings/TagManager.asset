@@ -9,11 +9,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - TIleMap
   - Water
   - UI
   - Player
-  - 
+  - Pickup
   - 
   - 
   - 
@@ -39,11 +39,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2665538267
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 2665538267
+  - name: random shit
+    uniqueID: 1160630919
     locked: 0
   - name: Forground
     uniqueID: 2007128635

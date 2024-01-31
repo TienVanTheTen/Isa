@@ -45,7 +45,7 @@ public class BulletTypeManager : MonoBehaviour
     //set current effect ur using
     public void SetCurrentEffect(int index)
     {
-        if (EffectListInventory.Count < index || index < 0)
+        if (EffectListInventory.Count -1 < index || index < 0)
             return;
         currentEffect = EffectListInventory.ElementAt(index).Key;
         onBulletEffectChanged?.Invoke();
