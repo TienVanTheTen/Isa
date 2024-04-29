@@ -8,17 +8,13 @@ public class ExtraMovementSpeedUpgrade : UpgradeBaseClass
 
     [SerializeField]
     private float moveSpeed;
-    public override void OnEquip(UpgradeManager upgradeManager)
+    public override void OnEquip()
     { 
         upgradeManager.playerStatManager.ChangeMoveSpeed(moveSpeed);
     }
 
-    public override void OnDequip(UpgradeManager upgradeManager)
+    public override void OnDequip()
     {
         upgradeManager.playerStatManager.ChangeMoveSpeed(-moveSpeed);
-        Destroy(gameObject);
-    }
-    public override void WhileEquipped(UpgradeManager upgradeManager)
-    {
     }
 }
