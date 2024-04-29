@@ -7,7 +7,7 @@ using UnityEngine;
 
 public interface IWeapon
 {
-    void Fire(Transform shootingpos,EffectBulletScriptableObject effectBullet);
+    void Fire(Transform shootingpos, EffectBulletScriptableObject effectBullet);
     void Reload(int amount);
 
 }

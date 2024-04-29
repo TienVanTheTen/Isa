@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-   
-    [SerializeField] 
-    private float moveSpeed;
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
     private Animator bodyAnimator;
 
-    private Vector2 movement;
-   
+    private PlayerStatManager stats;
 
+    private Vector2 movement;
+
+    private void Start()
+    {
+        stats = GetComponent<PlayerStatManager>();
+    }
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -34,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         }
        
 
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement.normalized * stats.moveSpeed * Time.fixedDeltaTime);
 
     }
     private void UpdateAnimator()

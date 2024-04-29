@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192497103fb6d4d4eb7cb5fff6b3e7ba, type: 3}
   m_Name: Ice
   m_EditorClassIdentifier: 
-  BulletSprite: {fileID: 21300000, guid: deb031fbec31c834aa846d6e27f2c62b, type: 3}
+  nameBullet: Ice
+  bulletSprite: {fileID: 0}
   damage: 10
   slowAmount: 15
   slowTime: 3

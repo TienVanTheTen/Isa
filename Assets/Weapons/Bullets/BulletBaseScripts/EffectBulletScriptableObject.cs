@@ -3,7 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EffectBulletScriptableObject", menuName ="ScriptableObjects/EffectWeapon")]
 public class EffectBulletScriptableObject : ScriptableObject
 {
-   public Sprite BulletSprite;
+   public string nameBullet;
+   public Sprite bulletSprite;
    public float damage;
    public float slowAmount;
    public float slowTime;

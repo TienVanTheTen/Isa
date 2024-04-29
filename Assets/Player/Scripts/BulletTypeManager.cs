@@ -30,7 +30,7 @@ public class BulletTypeManager : MonoBehaviour
     }
 
     //scroll function for switching effects
-    public void changeBulletEffectIndex(int amount)
+    public void ChangeBulletEffectIndex(int amount)
     {
         currentBulletEffectIndex += amount;
 

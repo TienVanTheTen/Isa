@@ -40,10 +40,10 @@ public class PlayerWeaponManager : MonoBehaviour
             return;
 
         if (Input.GetKeyDown(switchBulletTypeUpKey))
-            bulletTypeManager.changeBulletEffectIndex(1);
+            bulletTypeManager.ChangeBulletEffectIndex(1);
 
         if (Input.GetKeyDown(switchBulletTypeDownKey))
-            bulletTypeManager.changeBulletEffectIndex(-1);
+            bulletTypeManager.ChangeBulletEffectIndex(-1);
 
         if (Input.GetButton("Fire1") && bulletTypeManager.AbleToShoot() != 0)
             currentWeapon.Fire(shootingPoint, bulletTypeManager.currentEffect);
