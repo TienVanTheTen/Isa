@@ -15,7 +15,10 @@ public interface IDamagable
 
 public interface IEffectable
 {
-    public void TakeEffects(EffectBulletScriptableObject effects);
+    public void TakeEffects(BulletStats effects);
 }
-
+public interface ISpecialEffecable
+{
+    public void TakeSpecialEffects(List<SpecialEffectBaseClass> effects, GameObject target);
+}
    

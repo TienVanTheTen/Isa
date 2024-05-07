@@ -62,7 +62,7 @@ public abstract class WeaponBaseClass : ScriptableObject, IWeapon
     public virtual void InstantiateBullets(Transform shootingPos, EffectBulletScriptableObject effectBullet)
     {
         var bullet = Instantiate(bulletPrefab, shootingPos.position, shootingPos.rotation);
-        bullet.GetComponent<Projectile>().effect = effectBullet;
+        bullet.GetComponent<BulletStats>().CalculateEffect(effectBullet);
     }
     //reloading after a time amount
     async void ReloadMagazine(int amount)

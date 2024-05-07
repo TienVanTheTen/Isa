@@ -26,7 +26,7 @@ public class BulletPickup : MonoBehaviour,IPickup
     public void PickUp(GameObject obj)
     {
         BulletTypeManager manager = obj.GetComponent<BulletTypeManager>();
-
+        //adding bullet to bullettype manager
         if (manager != null)
         {
             manager.AddBullet(effect, amountOfBullets);

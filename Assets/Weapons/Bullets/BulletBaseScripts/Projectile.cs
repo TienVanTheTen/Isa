@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
-    public EffectBulletScriptableObject effect;
+    BulletStats stats;
 
     private float time = 0f;
     private float timeToLive;
@@ -15,13 +15,16 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        sprite.sprite = effect.bulletSprite;
-        timeToLive = effect.range / effect.velocity;
+        stats = GetComponent<BulletStats>();
+        sprite.sprite = stats.bulletSprite;
+        timeToLive = stats.range / stats.velocity;
+        BulletSpawnComunicator.OnBulletSpawn?.Invoke(stats);
+        
     }
     private void Update()
     {
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
-        RaycastHit2D hit = Physics2D.Raycast(pos, transform.TransformDirection(Vector2.up), effect.velocity * Time.deltaTime,layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(pos, transform.TransformDirection(Vector2.up), stats.velocity * Time.deltaTime,layerMask);
         if (hit.collider != null)
         {
             transform.position = hit.point;
@@ -29,13 +32,19 @@ public class Projectile : MonoBehaviour
             IDamagable damage = hit.collider.gameObject.GetComponent<IDamagable>();
             if (damage != null)
             {
-                damage.TakeDamage(effect.damage);
+                damage.TakeDamage(stats.damage);
             }
 
             IEffectable effectable = hit.collider.gameObject.GetComponent<IEffectable>();
             if (effectable != null)
             {
-                effectable.TakeEffects(effect);
+                effectable.TakeEffects(stats);
+            }
+
+            ISpecialEffecable specialEffecable = hit.collider.gameObject.GetComponent<ISpecialEffecable>();
+            if(specialEffecable != null)
+            {
+                specialEffecable.TakeSpecialEffects(stats.specialEffects, hit.collider.gameObject);
             }
 
             Die();
@@ -43,7 +52,7 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            transform.Translate(Vector2.up * effect.velocity * Time.deltaTime);
+            transform.Translate(Vector2.up * stats.velocity * Time.deltaTime);
         }
 
         CalculateDecay();

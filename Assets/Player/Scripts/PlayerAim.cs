@@ -11,6 +11,7 @@ public class PlayerAim : MonoBehaviour
 
     void Update()
     {
+        //operation head movement and aim direction
         Vector3 mousepos = Input.mousePosition;
         mousepos = Camera.main.ScreenToWorldPoint(mousepos);
         Vector2 direction = new Vector2(mousepos.x - shootingPoint.position.x, mousepos.y - shootingPoint.position.y);

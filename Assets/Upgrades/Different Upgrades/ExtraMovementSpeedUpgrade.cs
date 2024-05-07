@@ -8,6 +8,7 @@ public class ExtraMovementSpeedUpgrade : UpgradeBaseClass
 
     [SerializeField]
     private float moveSpeed;
+    
     public override void OnEquip()
     { 
         upgradeManager.playerStatManager.ChangeMoveSpeed(moveSpeed);

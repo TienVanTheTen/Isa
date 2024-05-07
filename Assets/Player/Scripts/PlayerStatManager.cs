@@ -13,8 +13,8 @@ public class PlayerStatManager : MonoBehaviour
     {
         moveSpeed += amount;
     }
-    public void ChangeMaxHealth()
+    public void ChangeMaxHealth(float amount)
     {
-
+        maxHealth += amount;
     }
 }
